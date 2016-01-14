@@ -1,0 +1,24 @@
+<% if current_user %>
+	
+<h1><%= current_user.name %></h1>
+<span><%= link_to "view my profile", current_user %></span>
+<span><%= pluralize(current_user.microposts.count, "micropost") %></span>
+
+<%= form_for(@post) do |f| %>
+
+  <div class="field">
+    <%= f.text_area :body, placeholder: "Compose new micropost..." %>
+  </div>
+  <%= f.submit "Post"%>
+<% end %>
+
+
+<a href="/log-in">Log In</a>
+
+
+<h1>Search Form</h1>
+<%= form_tag("/search", method: "get") do %>
+	<%=label_tag(:query, "Search:") %>
+	<%=text_field_tag(:query) %>
+	<%=submit_tag("Submit")%>
+<% end %>

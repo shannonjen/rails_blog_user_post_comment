@@ -1,0 +1,28 @@
+<% if current_user %>
+	<h1>Welcome, <%= current_user.username %>!</h1>
+	<span><%= link_to "view my profile", current_user %></span>
+	<span><%= pluralize(current_user.posts.count, "post") %></span>
+	
+	<%= form_for(@post) do |f| %>
+
+  	<div class="field">
+    	<%= f.text_area :body, placeholder: "Compose new post..." %>
+  	</div>
+  	<%= f.submit "Post"%>
+  <% end %>
+	<h3>Twitter Feed</h3>
+  <ul>
+		<% @posts.each do |post| %>
+				<li>
+					<%= link_to post.user.username, post.user %>
+					<%= post.body %>
+					Posted: <%= time_ago_in_words(post.created_at) %> ago.
+				</li>
+		<% end %>
+	</ul>
+<% else %>
+<h1>Welcome to Twitter</h1>
+<a href="/log-in">Log In</a>
+<a href="/sign-up">Sign Up</a>
+
+<% end %>
